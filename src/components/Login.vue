@@ -47,7 +47,7 @@
                                 <span>c помощью Вконтакте</span>
                             </a>-->
                         </div>
-                        <div class="register">Впервые тут? <span @click="$emit('register')">Регистрация</span></div>
+                        <div class="register"><div class="text">Впервые тут?</div> <span @click="$emit('register')">Регистрация</span> <div class="line"></div></div>
                     </div>
                     <div class="second" :class="{active: email.length > 0}">
                         <div class="form-group pass" :class="{has_error: error_pass}">
@@ -212,9 +212,21 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 19px;
+        display: flex;
+        align-items: center;
     }
     .register span {
         color: #0B94CD;
+        margin-right: 15px;
+    }
+    .register .text{
+        min-width: 110px;
+    }
+    .register .line{
+        height: 2px;
+        width: 100%;
+        background: #F2F2F2;
+        border-radius: 1px;
     }
     .loginWrap .enterBlock .first.active,
     .loginWrap .enterBlock .second.active{

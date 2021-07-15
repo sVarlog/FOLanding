@@ -447,9 +447,11 @@
         },
         mounted(){
             setTimeout(()=>{
-                this.modalShow = true;
-                this.modalType = 'newUsers';
-            },4500)
+                if (this.modalType === '') {
+                    this.modalShow = true;
+                    this.modalType = 'newUsers';
+                }
+            }, 4500)
             this.user = JSON.parse(localStorage.getItem('user')) || null;
             this.videoSwiper = document.querySelector('.videoSwiper').swiper;
             this.timerId = setInterval(this.createTimer,1000);
@@ -546,7 +548,8 @@
         z-index: 5;
     }
     .popup {
-        width: 285px;
+        width: 315px;
+        max-width: 80vw;
         background: #FFFFFF;
         border-radius: 20px;
         transition: .2s;
@@ -705,9 +708,6 @@
         font-size: 10px;
         line-height: 150%;
     }
-    .item {
-
-    }
     .slider {
         height: 186px;
         overflow: visible;
@@ -773,9 +773,6 @@
             color: #FFFFFF;
             border-radius: 15px;
         }
-        .item-btn.blur {
-
-        }
         .item-btn-left {
             margin-right: 10px;
             font-weight: 800;
@@ -789,7 +786,6 @@
             line-height: 21px;
             color: #94C6FF;
         }
-        .best-videos {}
         .best-videos-title-wrapper {
             display: flex;
             align-items: center;
@@ -874,8 +870,6 @@
             align-items: center;
             margin: 0 25px;
         }
-        .video-btn.stop {
-        }
         .video-btn.next {
             height: 40px;
             width: 40px;
@@ -884,9 +878,6 @@
             margin: 0;
             position: absolute;
             right: 17%;
-        }
-        .howToEarn {
-
         }
         .howToEarn-logo-wrapper {
             display: flex;

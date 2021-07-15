@@ -19,7 +19,7 @@
                     </div>
                     в 1 клик
                 </div>
-                <div class="reg-list__item fbReg" onclick="$('#facebook_auth').submit()">
+                <div class="reg-list__item fbReg" onclick="document.querySelector('#facebook_auth').submit()">
                     <div class="svgWrap">
                         <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.99733 3.48687H10.9145V0.147875C10.5837 0.102375 9.4462 0 8.12145 0C5.35733 0 3.46383 1.73863 3.46383 4.93412V7.875H0.413574V11.6077H3.46383V21H7.20358V11.6086H10.1305L10.5951 7.87588H7.2027V5.30425C7.20358 4.22537 7.49408 3.48687 8.99733 3.48687Z" fill="white"/>
@@ -64,7 +64,7 @@
                     </div>
                     через Email
                 </div>
-                <div class="haveAcc">Уже есть аккаунт? <span @click="$emit('login')">Войти</span></div>
+                <div class="haveAcc"><div class="text">Уже есть аккаунт?</div> <span @click="$emit('login')">Войти</span> <div class="line"></div></div>
                 <!--<div class="reg-list__item vkReg" onclick="$('#vk_auth').submit()">
                     <div class="svgWrap">
                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,9 +307,21 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 19px;
+        display: flex;
+        align-items: center;
     }
     .haveAcc span {
-        color: #549CFF;
+        color: #0B94CD;
+        margin-right: 15px;
+    }
+    .haveAcc .text{
+        min-width: 150px;
+    }
+    .haveAcc .line{
+        height: 2px;
+        width: 100%;
+        background: #F2F2F2;
+        border-radius: 1px;
     }
     .separator{
         display: flex;

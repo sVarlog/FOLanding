@@ -73,14 +73,13 @@
             registerData() {
                 this.oneRegData.active = true;
                 axios
-                    .post('https://friendsOnly.me/api/registerClick')
+                    .post('https://friendsOnly.me/api/oneClick')
                     .then((resp) => {
                         console.log(resp)
-                            .then(() => {
-                                this.oneRegData.email = resp.data.email
-                                this.oneRegData.pass = resp.data.password
-                                this.$forceUpdate();
-                            })
+                        this.oneRegData.email = resp.data.email;
+                        this.oneRegData.pass = resp.data.password;
+                        // localStorage.setItem('user', JSON.stringify(resp.data.token));
+                        this.$forceUpdate();
                     });
             },
             copy(){
@@ -209,6 +208,7 @@
     .registerComponent .info .infoInner{
         display: flex;
         width: 100%;
+        flex-direction: column;
         justify-content: space-between;
         margin-top: 5px;
     }
@@ -220,22 +220,25 @@
         line-height: 16px;
         color: #292941;
         opacity: 0.4;
+        width: 50px;
+    }
+    .registerComponent .info .infoInner .info__log{
+        display: flex;
+        align-items: center;
+        margin-bottom: 17px;
+    }
+    .registerComponent .info .infoInner .info__pass{
+        display: flex;
+        align-items: center;
     }
     .registerComponent .info .infoInner .value{
         font-family: SF Pro Display;
         font-style: normal;
         font-weight: 500;
-        font-size: 16px;
-        line-height: 19px;
-        height: 19px;
-        margin-top: 8px;
+        font-size: 14px;
+        line-height: 17px;
         color: #292941;
-    }
-    .registerComponent .info .infoInner .info__log{
-        width: 65%;
-    }
-    .registerComponent .info .infoInner .info__pass{
-        width: 35%;
+        margin-left: 10px;
     }
     .registerComponent .stepsWrap{
         overflow: hidden;

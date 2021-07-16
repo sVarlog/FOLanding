@@ -322,7 +322,7 @@
         }),
         methods:{
             subscribeOnModel(){
-                window.open(`https://friendsonly.me/auth_redirect/token/${this.user}?link=/yakassa/card/follow/bank_card/219`);
+                window.open(`https://friendsonly.me/auth_redirect/token/${this.user}?link=/yakassa/card/follow/bank_card/${this.modelId}`);
             },
             setUser(user){
                 this.user = user;
@@ -358,6 +358,7 @@
                 this.modalType = type;
             },
             closeModal(){
+                this.modelId = null;
                 this.modalShow = false;
                 this.modalType = ''
             },

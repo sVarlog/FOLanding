@@ -19,33 +19,6 @@
                     </div>
                     в 1 клик
                 </div>
-                <div class="reg-list__item fbReg" onclick="document.querySelector('#facebook_auth').submit()">
-                    <div class="svgWrap">
-                        <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.99733 3.48687H10.9145V0.147875C10.5837 0.102375 9.4462 0 8.12145 0C5.35733 0 3.46383 1.73863 3.46383 4.93412V7.875H0.413574V11.6077H3.46383V21H7.20358V11.6086H10.1305L10.5951 7.87588H7.2027V5.30425C7.20358 4.22537 7.49408 3.48687 8.99733 3.48687Z" fill="white"/>
-                        </svg>
-                    </div>
-                    через Facebook
-                </div>
-                <form action="/login/facebook" id="facebook_auth">
-                    <input hidden type="text" name="payment" :value="123">
-                </form>
-                <div class="reg-list__item tgReg" onclick="window.location.href = 'tg://resolve?domain=Friendsonly_mebot'">
-                    <div class="svgWrap">
-                        <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.32154 18.7979C7.62463 18.7979 7.74311 18.5383 7.50275 17.8835L5.45361 11.2288L21.2272 1.99463" fill="#C8DAEA"/>
-                            <path d="M8.32178 18.798C8.85951 18.798 9.09701 18.5553 9.39725 18.2673L12.2652 15.5155L8.6878 13.3867" fill="#A9C9DD"/>
-                            <path d="M8.56893 13.074L16.675 19.2388C17.6001 19.7642 18.2676 19.4921 18.498 18.3549L21.7976 2.34935C22.1354 0.955208 21.2813 0.322668 20.3963 0.736252L1.02119 8.42662C-0.301323 8.97272 -0.293445 9.73225 0.780157 10.0706L5.75225 11.6682L17.2632 4.19279C17.8066 3.85357 18.3054 4.03577 17.8961 4.40985" fill="url(#paint0_linear)"/>
-                            <defs>
-                                <linearGradient id="paint0_linear" x1="14.4363" y1="8.86394" x2="17.7307" y2="16.1559" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#EFF7FC"/>
-                                    <stop offset="1" stop-color="white"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    через Telegram
-                </div>
                 <div class="reg-list__item email" @click="emailAuth = true; showStep(1, true)">
                     <div class="svgWrap">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +81,7 @@
                     </transition>
                 </div>
             </div>
-            <register-one-click key="third" v-if="regOneClick"></register-one-click>
+            <register-one-click key="third" v-if="regOneClick" @setUser="setUser"></register-one-click>
         </transition-group>
     </div>
 </template>
@@ -137,7 +110,7 @@
             btnActive: false,
             stepsInner: null,
             emailAuth: false,
-            currentHeight: 350,
+            currentHeight: 215,
             currentRegEmailStep: 0,
             showPass: false,
             showConfirm: false,
@@ -149,19 +122,22 @@
         watch: {
             pass: function() {
                 if (this.confirm === '') {
-                    this.pass.length >= 4 ? this.currentHeight = 200 : this.currentHeight = 140;
+                    this.pass.length >= 4 ? this.currentHeight = 220 : this.currentHeight = 160;
                 } else {
-                    this.pass.length >= 4 && this.pass === this.confirm ? this.currentHeight = 265 : this.currentHeight = 200;
+                    this.pass.length >= 4 && this.pass === this.confirm ? this.currentHeight = 285 : this.currentHeight = 220;
                 }
             },
             confirm: function() {
-                this.confirm === this.pass ? this.currentHeight = 265 : this.currentHeight = 200;
+                this.confirm === this.pass ? this.currentHeight = 285 : this.currentHeight = 220;
             }
         },
         methods: {
+            setUser(data) {
+                this.$emit('setUser', data)
+            },
             showStep(num) {
                 if (num === 1) {
-                    this.currentHeight = 80;
+                    this.currentHeight = 100;
                 } else if (num === 2) {
                     this.currentHeight = 120;
                 }
@@ -220,13 +196,13 @@
                         this.type = 'email'
                         this.btnActive = true
                         if (this.pass === '') {
-                            this.currentHeight = 140;
+                            this.currentHeight = 160;
                         } else {
-                            this.pass.length >= 4 && this.pass === this.confirm ? this.currentHeight = 265 : this.currentHeight = 200;
+                            this.pass.length >= 4 && this.pass === this.confirm ? this.currentHeight = 285 : this.currentHeight = 220;
                         }
                     } else {
                         this.btnActive = false
-                        this.currentHeight = 80;
+                        this.currentHeight = 100;
                     }
                     // if(testTel.test(this.email)) {
                     //     this.usr_for_reg = '/registerSms'
@@ -249,6 +225,7 @@
     .registerWrap{
         transition: .2s;
         position: relative;
+        overflow: hidden;
     }
     .reg-list-title {
         font-weight: 600;

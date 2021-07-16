@@ -44,13 +44,13 @@
             </div>
             <div class="item-wrapper">
                 <div v-for="(item,index) in items" :key="index" class="item">
-                    <swiper ref="mySwiper" :options="swiperOption" >
+                    <swiper ref="mySwiper" :options="swiperOption" @click.self="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">
                         <swiper-slide v-for="(photo,index) in item.photos" :key="index">
                             <div class="slider-item">
                                 <img class="slider-img" :src="photo" alt="das">
                             </div>
                         </swiper-slide>
-                        <swiper-slide v-if="item.video">
+                        <swiper-slide v-if="item.video" class="test">
                             <div @click="modelsVideoController(index)" class="slider-item">
                                 <video class="modelsVideo"  :style="{width: `100%`,height: `100%`,position: `absolute`,objectFit: `cover`,borderRadius:'10px'}" muted preload="auto">
                                     <source :src="item.video" type="video/mp4">
@@ -68,12 +68,12 @@
                             <div class="slider-item" @click="showPopup = true">
                                 <img class="slider-img" :src="item.photos[0]" alt="das">
                                 <div class="blur">
-                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0]) : openPopUp('login')">Открыть доступ</div>
+                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">Открыть доступ</div>
                                 </div>
                             </div>
                         </swiper-slide>
-                        <swiper-slide>
-                            <div class="slider-item" @click="user ? selectModel(item.photos[0]) : openPopUp('login')">
+                        <swiper-slide >
+                            <div class="slider-item">
                                 <img class="slider-img" :src="item.photos[1]" alt="das">
                                 <div class="blur" :style="{background: `rgba(0, 0, 0, 0.8)`,flexDirection:'column'}">
                                     <p :style="{fontSize: '40px',lineHeight:'48px',fontWeight: 'bold'}">+{{item.photosCount-3}}</p>
@@ -87,8 +87,8 @@
                         <p class="count-left">{{item.videosCount}} видео</p>
                         <p class="count-right">{{item.photosCount}} фото</p>
                     </div>
-                    <div class="item-btn" @click="selectModel(item.photos[0])">
-                        <p class="item-btn-left">Получить доступ за  1 ₽ </p>
+                    <div class="item-btn" @click="selectModel(item.photos[0], item.id)">
+                        <p class="item-btn-left">Получить доступ за 1 ₽ </p>
                         <p class="item-btn-right">500 ₽</p>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                         <p class="popup-text">Будет списан 1 рубль для подтверждения </p>
                     </div>
                     <Register @setUser="setUser" @setLoginKey="setLoginKey"  @setLoading="setLoading" @login="showLoginModal" @closeModal="closeModal"  @showNotification="openNotification" v-else-if="modalType === 'registration'"/>
-                    <Login @setLoading="setLoading" @register="showRegisterModal" @closeModal="closeModal" @showNotification="openNotification" v-else-if="modalType === 'login'"/>
+                    <Login @setLoading="setLoading" @setUser="setUser" @register="showRegisterModal" @closeModal="closeModal" @showNotification="openNotification" v-else-if="modalType === 'login'"/>
                 </div>
             </div>
             <div key="second" class="notification" v-if="showNotification">
@@ -248,10 +248,10 @@
 </template>
 
 <script>
-    import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-    import 'swiper/swiper-bundle.css'
-    const Register = () => import('./components/Register')
-    const Login = () => import('./components/Login')
+    import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+    import 'swiper/swiper-bundle.css';
+    import Register from './components/Register';
+    import Login from './components/Login';
     const Landing = {
         name: "Landing",
         data:()=>({
@@ -268,6 +268,7 @@
             videoProgress: null,
             videoPaused:true,
             videoSwiper: null,
+            modelId: null,
             videoSliderData:[
                 {path:require('../public/video/1.mp4'),paused:true,curTime:null},
                 {path:require('../public/video/2.mp4'),paused:true,curTime:null},
@@ -280,33 +281,37 @@
                     videosCount:500,photosCount:742,
                     photos:[require('../public/img/slider/1.png'),require('../public/img/slider/2.png'),require('../public/img/slider/3.png')],
                     video:[require('../public/video/5.mp4')],
-                    id:0,
-                },{
+                    id:219,
+                },
+                {
                     title:'Constance Mayerovna',
                     videosCount:251,photosCount:612,
                     photos:[require('../public/img/slider/4.png'),require('../public/img/slider/5.png'),require('../public/img/slider/6.png')],
                     video:[require('../public/video/6.mp4')],
-                    id:0,
-                },{
+                    id:219,
+                },
+                {
                     title:'Kelly Warner',
                     videosCount:623,photosCount:256,
                     photos:[require('../public/img/slider/7.png'),require('../public/img/slider/8.png'),require('../public/img/slider/9.png')],
                     video:[require('../public/video/7.mp4')],
-                    id:0,
-                },{
+                    id:219,
+                },
+                {
                     title:'Carolyn Brooks',
                     videosCount:252,photosCount:125,
                     photos:[require('../public/img/slider/10.png'),require('../public/img/slider/11.png'),require('../public/img/slider/12.png')],
                     video:[require('../public/video/8.mp4')],
-                    id:0,
-                },{
+                    id:219,
+                },
+                {
                     title:'Nicholas Porter',
                     videosCount:345,photosCount:432,
                     photos:[require('../public/img/slider/13.png'),require('../public/img/slider/14.png'),require('../public/img/slider/15.png')],
                     video:[require('../public/video/9.mp4')],
-                    id:0,
+                    id:219,
                 },
-                ],
+            ],
             videoSwiperOptions: {
                 noSwiping:false,
             },
@@ -316,15 +321,18 @@
             }
         }),
         methods:{
-            subscribeOnModel(id){
-                document.location.replace(`https://friendsonly.me/auth_redirect/token/${this.user.token}?link=/yakassa/card/follow/bank_card/${id}`)
+            subscribeOnModel(){
+                window.open(`https://friendsonly.me/auth_redirect/token/${this.user}?link=/yakassa/card/follow/bank_card/219`);
             },
             setUser(user){
                 this.user = user;
             },
             setLoading(flag){
-                if (flag) this.loading = flag;
-                else this.loading = flag;
+                if (flag) {
+                    this.loading = flag;
+                } else {
+                    this.loading = flag;
+                }                    
             },
             setLoginKey(){
                 this.loginKey++
@@ -339,8 +347,10 @@
             closeNotification(){
               this.showNotification = false;
             },
-            selectModel(photo){
+            selectModel(photo, id){
+                console.log('select');
                 this.friendsModalPhoto = photo;
+                this.modelId = id;
                 this.openPopUp('makeFriends');
             },
             openPopUp(type){
@@ -488,6 +498,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        outline: 0;
     }
     @font-face {
         font-family: 'SF Pro Display';

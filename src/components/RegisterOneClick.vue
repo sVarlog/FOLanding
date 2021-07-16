@@ -2,8 +2,8 @@
     <div class="registerComponent">
         <div class="imgWrap" style="min-width: 105px; min-height: 105px;">
             <lottie-animation
-                    style="width: 105px; height: 105px;"
-                    path="lootie/registerModalGif.json"
+                style="width: 105px; height: 105px;"
+                path="lootie/registerModalGif.json"
             />
         </div>
         <p class="popupText">Сохраните логин и пароль, чтобы не потерять доступ к аккаунту.</p>
@@ -78,7 +78,8 @@
                         console.log(resp)
                         this.oneRegData.email = resp.data.email;
                         this.oneRegData.pass = resp.data.password;
-                        // localStorage.setItem('user', JSON.stringify(resp.data.token));
+                        localStorage.setItem('user', JSON.stringify(resp.data.token));
+                        this.$emit('setUser',resp.data.token);
                         this.$forceUpdate();
                     });
             },

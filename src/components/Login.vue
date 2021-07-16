@@ -13,40 +13,6 @@
                             <span>или</span>
                             <div class="line"></div>
                         </div>
-                        <div class="page-login__footer">
-                            <a href="tg://resolve?domain=Friendsonly_mebot">
-                                <span class="svgWrap">
-                                    <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.32154 18.7979C7.62463 18.7979 7.74311 18.5383 7.50275 17.8835L5.45361 11.2288L21.2272 1.99463" fill="#C8DAEA"/>
-                                        <path d="M8.32178 18.798C8.85951 18.798 9.09701 18.5553 9.39725 18.2673L12.2652 15.5155L8.6878 13.3867" fill="#A9C9DD"/>
-                                        <path d="M8.56893 13.074L16.675 19.2388C17.6001 19.7642 18.2676 19.4921 18.498 18.3549L21.7976 2.34935C22.1354 0.955208 21.2813 0.322668 20.3963 0.736252L1.02119 8.42662C-0.301323 8.97272 -0.293445 9.73225 0.780157 10.0706L5.75225 11.6682L17.2632 4.19279C17.8066 3.85357 18.3054 4.03577 17.8961 4.40985" fill="url(#paint0_linear)"/>
-                                        <defs>
-                                            <linearGradient id="paint0_linear" x1="14.4363" y1="8.86394" x2="17.7307" y2="16.1559" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#EFF7FC"/>
-                                                <stop offset="1" stop-color="white"/>
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </span>
-                                <span>через Telegram</span>
-                            </a>
-                            <a href="''">
-                                <span class="svgWrap">
-                                    <svg width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.99733 3.48687H10.9145V0.147875C10.5837 0.102375 9.4462 0 8.12145 0C5.35733 0 3.46383 1.73863 3.46383 4.93412V7.875H0.413574V11.6077H3.46383V21H7.20358V11.6086H10.1305L10.5951 7.87588H7.2027V5.30425C7.20358 4.22537 7.49408 3.48687 8.99733 3.48687Z" fill="white"/>
-                                    </svg>
-                                </span>
-                                <span>через Facebook</span>
-                            </a>
-                            <!--<a :href="socLogin('vkontakte')">
-                                <span class="svgWrap">
-                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20.8128 15.4613C20.7564 15.3635 20.4072 14.579 18.7271 12.9666C16.9682 11.2781 17.2045 11.5523 19.323 8.63277C20.6133 6.85474 21.1292 5.76891 20.9677 5.30472C20.8141 4.86225 19.8651 4.97897 19.8651 4.97897L16.7096 4.99797C16.7096 4.99797 16.476 4.9654 16.3014 5.07262C16.1321 5.17849 16.0232 5.4228 16.0232 5.4228C16.0232 5.4228 15.5231 6.79909 14.8563 7.96906C13.4505 10.438 12.8874 10.5683 12.6577 10.4149C12.1234 10.0579 12.2573 8.97888 12.2573 8.21337C12.2573 5.82049 12.6078 4.82288 11.5735 4.565C11.2296 4.47949 10.9775 4.42249 10.0994 4.41299C8.9732 4.40077 8.01894 4.41706 7.47947 4.68987C7.11982 4.87175 6.84286 5.27757 7.01218 5.30065C7.22089 5.32915 7.69342 5.4323 7.94413 5.7852C8.26834 6.23989 8.25652 7.26328 8.25652 7.26328C8.25652 7.26328 8.44291 10.0796 7.82206 10.4298C7.39546 10.6701 6.81136 10.1801 5.55783 7.9392C4.91597 6.7923 4.43031 5.52324 4.43031 5.52324C4.43031 5.52324 4.33711 5.28708 4.17041 5.16085C3.96827 5.00748 3.68475 4.95861 3.68475 4.95861L0.684156 4.97762C0.684156 4.97762 0.233935 4.99119 0.0685481 5.19342C-0.0784628 5.37394 0.0567347 5.74584 0.0567347 5.74584C0.0567347 5.74584 2.40628 11.4288 5.0656 14.294C7.50572 16.9203 10.2753 16.748 10.2753 16.748H11.5301C11.5301 16.748 11.9095 16.7045 12.1024 16.4887C12.2809 16.2906 12.2744 15.9187 12.2744 15.9187C12.2744 15.9187 12.2494 14.1773 13.0318 13.9207C13.8022 13.6683 14.7919 15.6038 15.8407 16.3489C16.6335 16.9122 17.236 16.7887 17.236 16.7887L20.041 16.748C20.041 16.748 21.5085 16.6543 20.8128 15.4613Z" fill="white"/>
-                                    </svg>
-                                </span>
-                                <span>c помощью Вконтакте</span>
-                            </a>-->
-                        </div>
                         <div class="register"><div class="text">Впервые тут?</div> <span @click="$emit('register')">Регистрация</span> <div class="line"></div></div>
                     </div>
                     <div class="second" :class="{active: email.length > 0}">
@@ -68,11 +34,11 @@
                             </div>
                         </div>
                         <button class="loginBtn" @click="login" :disabled="error_email||error_pass">Войти в аккаунт</button>
-                        <button class="linkForgot" @click="changeStep(1)">Забыл пароль :(</button>
+                        <!-- <button class="linkForgot" @click="changeStep(1)">Забыл пароль :(</button> -->
                     </div>
                 </div>
             </div>
-            <div key="sec" v-show="currentStep === 1" class="step second">
+            <!-- <div key="sec" v-show="currentStep === 1" class="step second">
                 <div class="separator" :style="{marginBottom:'25px'}">
                     <h3 class="login-title" :style="{margin:0}">Восстановление пароля</h3>
                 </div>
@@ -91,7 +57,7 @@
                 <h3>Отлично!</h3>
                 <span>Мы отправили инструкции по восстановлению пароля вам на почту</span>
                 <button @click="changeStep(0)">Вернуться к авторизации</button>
-            </div>
+            </div> -->
         </transition-group>
     </div>
 </template>
@@ -117,19 +83,20 @@
             },
             showPass: false,
             currentStep: 0,
-            stepHeight: [353, 157]
+            stepHeight: [205, 165, 165]
         }),
         watch:{
-            error_pass(){
-                setTimeout(()=>{
-                    this.error_pass = false
-                },4000)
+            email() {
+                this.error_email = false
+                if (this.email.length > 0) {
+                    this.$el.style = 'height: 235px';
+                } else {
+                    this.$el.style = 'height: 205px';
+                }
             },
-            error_email(){
-                setTimeout(()=>{
-                    this.error_email = false
-                },4000)
-            },
+            pass() {
+                this.error_pass = false;
+            }
         },
         methods: {
             changeStep(step){
@@ -168,11 +135,14 @@
                 form.append('email', this.email);
                 form.append('password', this.pass);
                 this.$emit('setLoading',true)
-                axios.post('https://friendsOnly.me/api/login', form)
-                    .then(() => {
-                            this.$emit('showNotification','Вход выполнен');
-                            this.$emit('closeModal');
-                            this.$emit('setLoading',false);
+                axios
+                    .post('https://friendsOnly.me/api/login', form)
+                    .then((data) => {
+                        this.$emit('showNotification','Вход выполнен');
+                        this.$emit('closeModal');
+                        this.$emit('setLoading',false);
+                        localStorage.setItem('user',JSON.stringify(data.data.data._token));
+                        this.$emit('setUser',data.data.data._token);
                     })
                     .catch(error => {
                         this.$emit('setLoading',false)
@@ -192,6 +162,7 @@
 <style scoped>
     .loginWrap{
         position: relative;
+        overflow: hidden;
     }
     .loginWrap .enterBlock{
         position: relative;

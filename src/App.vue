@@ -22,7 +22,7 @@
                     </svg>
                     <p class="logo-text">FRIENDSONLY</p>
                 </div>
-                <div v-if="!user" class="login-btn" @click="openPopUp('login')">Войти</div>
+                <div v-if="!user" class="login-btn" @click="openPopUp('registration')">Войти</div>
             </div>
         </div>
         <div class="container">

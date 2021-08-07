@@ -50,6 +50,14 @@
                                 <img class="slider-img" :src="photo" alt="das">
                             </div>
                         </swiper-slide>
+                        <swiper-slide v-for="(photo, index) in item.closed" :key="index">
+                            <div class="slider-item" @click="showPopup = true">
+                                <img class="slider-img" :src="item.closed[index]" alt="das">
+                                <div class="blur">
+                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">Открыть доступ</div>
+                                </div>
+                            </div>
+                        </swiper-slide>
                         <swiper-slide v-if="item.video" class="test">
                             <div @click="modelsVideoController(index)" class="slider-item">
                                 <video class="modelsVideo"  :style="{width: `100%`,height: `100%`,position: `absolute`,objectFit: `cover`,borderRadius:'10px'}" muted preload="auto">
@@ -61,14 +69,6 @@
                                         <path d="M8.6087 4.33242C9.13043 4.62912 9.13043 5.37088 8.6087 5.66758L1.17391 9.89558C0.652174 10.1923 -4.30455e-07 9.8214 -4.04447e-07 9.228L-3.38356e-08 0.772003C-7.82773e-09 0.1786 0.652174 -0.192277 1.17391 0.104424L8.6087 4.33242Z" fill="white"/>
                                     </svg>
                                     <p class="video-text" :style="{marginLeft:'8px'}"></p>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                        <swiper-slide>
-                            <div class="slider-item" @click="showPopup = true">
-                                <img class="slider-img" :src="item.photos[0]" alt="das">
-                                <div class="blur">
-                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">Открыть доступ</div>
                                 </div>
                             </div>
                         </swiper-slide>
@@ -179,7 +179,7 @@
                 <p class="howToEarn-text">Начните зарабатывать от 100 000 рублей в</p>
                 <p class="howToEarn-text">месяц прямо сейчас</p>
                 <div class="howToEarn-btn item-btn item-btn-left">
-                    <a href="https://dev.friendsonly.me/howToEarn">Как зарабатывать в FriendsOnly?</a>
+                    <a href="https://friendsonly.me/howToEarn">Как зарабатывать в FriendsOnly?</a>
                 </div>
             </div>
         </div>
@@ -277,38 +277,83 @@
             ],
             items:[
                 {
-                    title:'Kira Mayern',
-                    videosCount:500,photosCount:742,
-                    photos:[require('../public/img/slider/1.png'),require('../public/img/slider/2.png'),require('../public/img/slider/3.png')],
-                    video:[require('../public/video/5.mp4')],
+                    title: 'Диана Шурыгина',
+                    videosCount :500,
+                    photosCount: 742,
+                    photos: [
+                        require('../public/img/images/1/Open/1.jpg'),
+                        require('../public/img/images/1/Open/2.jpg'),
+                        require('../public/img/images/1/Open/3.jpg')
+                    ],
+                    closed: [
+                        require('../public/img/images/1/Close/1.jpg'),
+                        require('../public/img/images/1/Close/2.jpg')
+                    ],
+                    id: 219,
+                },
+                {
+                    title: 'Аделина и Алина',
+                    videosCount: 251,
+                    photosCount: 612,
+                    photos: [
+                        require('../public/img/images/2/Open/1.jpg'),
+                        require('../public/img/images/2/Open/2.jpg'),
+                        require('../public/img/images/2/Open/3.jpg'),
+                        require('../public/img/images/2/Open/4.jpg'),
+                        require('../public/img/images/2/Open/5.jpg')
+                    ],
+                    closed: [
+                        require('../public/img/images/2/Close/1.jpg'),
+                        require('../public/img/images/2/Close/2.jpg')
+                    ],
+                    id: 219,
+                },
+                {
+                    title: 'Mia',
+                    videosCount: 623,
+                    photosCount: 256,
+                    photos: [
+                        require('../public/img/images/3/Open/1.jpg'),
+                        require('../public/img/images/3/Open/2.jpg'),
+                        require('../public/img/images/3/Open/3.jpg'),
+                    ],
+                    closed: [
+                        require('../public/img/images/3/Close/1.jpg'),
+                        require('../public/img/images/3/Close/2.jpg')
+                    ],
+                    id: 219,
+                },
+                {
+                    title: 'Amouranth',
+                    videosCount: 252,
+                    photosCount: 125,
+                    photos: [
+                        require('../public/img/images/4/Open/1.jpg'),
+                        require('../public/img/images/4/Open/2.jpg'),
+                        require('../public/img/images/4/Open/3.jpg'),
+                        require('../public/img/images/4/Open/4.jpg'),
+                        require('../public/img/images/4/Open/5.jpg'),
+                    ],
+                    closed: [
+                        require('../public/img/images/4/Close/1.jpg'),
+                        require('../public/img/images/4/Close/2.jpg'),
+                        require('../public/img/images/4/Close/3.jpg'),
+                    ],
                     id:219,
                 },
                 {
-                    title:'Constance Mayerovna',
-                    videosCount:251,photosCount:612,
-                    photos:[require('../public/img/slider/4.png'),require('../public/img/slider/5.png'),require('../public/img/slider/6.png')],
-                    video:[require('../public/video/6.mp4')],
-                    id:219,
-                },
-                {
-                    title:'Kelly Warner',
-                    videosCount:623,photosCount:256,
-                    photos:[require('../public/img/slider/7.png'),require('../public/img/slider/8.png'),require('../public/img/slider/9.png')],
-                    video:[require('../public/video/7.mp4')],
-                    id:219,
-                },
-                {
-                    title:'Carolyn Brooks',
-                    videosCount:252,photosCount:125,
-                    photos:[require('../public/img/slider/10.png'),require('../public/img/slider/11.png'),require('../public/img/slider/12.png')],
-                    video:[require('../public/video/8.mp4')],
-                    id:219,
-                },
-                {
-                    title:'Nicholas Porter',
-                    videosCount:345,photosCount:432,
-                    photos:[require('../public/img/slider/13.png'),require('../public/img/slider/14.png'),require('../public/img/slider/15.png')],
-                    video:[require('../public/video/9.mp4')],
+                    title: 'Bhad Bhabie',
+                    videosCount: 345,
+                    photosCount: 432,
+                    photos: [
+                        require('../public/img/images/5/Open/1.jpg'),
+                        require('../public/img/images/5/Open/2.jpg'),
+                        require('../public/img/images/5/Open/3.jpg'),
+                    ],
+                    closed: [
+                        require('../public/img/images/5/Close/1.jpg'),
+                        require('../public/img/images/5/Close/2.jpg'),
+                    ],
                     id:219,
                 },
             ],
@@ -537,9 +582,9 @@
     }
 </style>
 <style scoped>
-   .swiper-container {
-       overflow: visible;
-   }
+    .swiper-container {
+        overflow: visible;
+    }
     .landing {
         min-height: 100vh;
         max-width: 600px;
@@ -608,18 +653,18 @@
     .popup-btn.registration {
         background: linear-gradient(95.17deg, #FFBD59 -13%, #FF6745 130.82%);
     }
-   .popup-btn.facebook {
-       background: linear-gradient(90deg, #157DC3 0%, #07578D 100%), linear-gradient(90deg, #29B9F5 0%, #0B94CD 100%);
-   }
-   .popup-btn.telegram {
-       background: linear-gradient(90deg, #29B9F5 0%, #0B94CD 100%);
-   }
-   .popup-btn.email {
-       background: linear-gradient(89.99deg, #3790F5 0.01%, #1B76FF 100%);
-   }
-   .popup-btn.phone {
-       background: linear-gradient(90deg, #54ADFF 0%, #549CFF 100%);
-   }
+    .popup-btn.facebook {
+        background: linear-gradient(90deg, #157DC3 0%, #07578D 100%), linear-gradient(90deg, #29B9F5 0%, #0B94CD 100%);
+    }
+    .popup-btn.telegram {
+        background: linear-gradient(90deg, #29B9F5 0%, #0B94CD 100%);
+    }
+    .popup-btn.email {
+        background: linear-gradient(89.99deg, #3790F5 0.01%, #1B76FF 100%);
+    }
+    .popup-btn.phone {
+        background: linear-gradient(90deg, #54ADFF 0%, #549CFF 100%);
+    }
     .popup-registration-icon {
         position: absolute;
         left: 29px;
@@ -747,247 +792,248 @@
         align-items: center;
         color: white;
     }
-        .slider-img {
-            height: 100%;
-            width: 100%;
-            max-width: 100%;
-            position: absolute;
-            object-fit: cover;
-            left: 0;
-            top: 0;
-            border-radius: 10px;
+    .slider-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        position: absolute;
+        object-fit: cover;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+    .item-name {
+        margin: 20px 0 10px;
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 150%;
+    }
+    .item-count{
+        display: flex;
+    }
+    .count-left, .count-right {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 155%;
+        opacity: .5;
+    }
+    .count-left {
+        margin-right: 15px;
+    }
+    .item-btn {
+        margin: 15px 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 55px;
+        background: rgba(55, 144, 245, 1);
+        color: #FFFFFF;
+        border-radius: 15px;
+    }
+    .item-btn-left {
+        margin-right: 10px;
+        font-weight: 800;
+        font-size: 15px;
+        line-height: 18px;
+        color: #FFFFFF;
+    }
+    .item-btn-right {
+        text-decoration: line-through;
+        font-size: 18px;
+        line-height: 21px;
+        color: #94C6FF;
+    }
+    .best-videos-title-wrapper {
+        display: flex;
+        align-items: center;
+        margin: 10px 0 23px;
+    }
+    .best-videos-title {
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 150%;
+    }
+    .best-videos-icon {
+        margin-right: 10px;
+    }
+    .video {
+        border-radius: 20px;
+        height: 590px;
+        margin-bottom: 70px;
+        position: relative;
+    }
+    .video video {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        object-fit: cover;
+        border-radius: 20px;
+        z-index: 0;
+    }
+    .video-text {
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FFFFFF;
+    }
+    .video-slide {
+        height: 590px;
+        position: relative;
+    }
+    .video-layer {
+        position: absolute;
+        bottom: -20px;
+        width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        z-index: -1;
+    }
+    .video-layer.first {
+        background: #3790F5;
+        border-radius: 23px;
+    }
+    .video-layer.second {
+        background: rgba(55, 144, 245, 0.2);
+        border-radius: 25px;
+        bottom: -40px;
+        width: 70%;
+    }
+    .video-controllers {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        bottom: 30px;
+        z-index: 2;
+    }
+    .video-btn.prev {
+        height: 40px;
+        width: 40px;
+        background: #060719;
+        border-radius: 30px;
+        margin: 0;
+        position: absolute;
+        left: 17%;
+    }
+    .video-btn {
+        height: 57px;
+        width: 57px;
+        background: #060719;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 25px;
+    }
+    .video-btn.next {
+        height: 40px;
+        width: 40px;
+        background: #060719;
+        border-radius: 30px;
+        margin: 0;
+        position: absolute;
+        right: 17%;
+    }
+    .howToEarn-logo-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .howToEarn-title {
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 150%;
+    }
+    .howToEarn-text {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 155%;
+        opacity: .5;
+    }
+    .howToEarn-btn {
+        margin: 40px 0;
+        cursor: pointer;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+    }
+    .swiper-slide {
+        width:145px;
+    }
+    .notification{
+        position: fixed;
+        z-index: 500;
+        left: 0;
+        right: 0;
+        top: 30px;
+        width: 100%;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .notification p{
+        width: 100%;
+        min-height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        max-width: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 8px;
+        font-family: SF Pro Display;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        color: #FFFFFF;
+        opacity: 0;
+        transition: .3s;
+    }
+    .notification p.active{
+        opacity: 1;
+    }
+    .loading {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(30px);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+        .loading svg {
+            animation: rotate linear 2s infinite;
         }
-        .item-name {
-            margin: 20px 0 10px;
-            font-weight: 800;
-            font-size: 28px;
-            line-height: 150%;
+    @keyframes rotate {
+        0% {
+            transform: rotate(0);
         }
-        .item-count{
-            display: flex;
+        100% {
+            transform: rotate(360deg);
         }
-        .count-left, .count-right {
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 155%;
-            opacity: .5;
-        }
-        .count-left {
-            margin-right: 15px;
-        }
-        .item-btn {
-            margin: 15px 0 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 55px;
-            background: rgba(55, 144, 245, 1);
-            color: #FFFFFF;
-            border-radius: 15px;
-        }
-        .item-btn-left {
-            margin-right: 10px;
-            font-weight: 800;
-            font-size: 15px;
-            line-height: 18px;
-            color: #FFFFFF;
-        }
-        .item-btn-right {
-            text-decoration: line-through;
-            font-size: 18px;
-            line-height: 21px;
-            color: #94C6FF;
-        }
-        .best-videos-title-wrapper {
-            display: flex;
-            align-items: center;
-            margin: 10px 0 23px;
-        }
-        .best-videos-title {
-            font-weight: bold;
-            font-size: 22px;
-            line-height: 150%;
-        }
-        .best-videos-icon {
-            margin-right: 10px;
-        }
-        .video {
-            border-radius: 20px;
-            height: 590px;
-            margin-bottom: 70px;
-            position: relative;
-        }
-        .video video {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            object-fit: cover;
-            border-radius: 20px;
-            z-index: 0;
-        }
-        .video-text {
-            font-weight: 800;
-            font-size: 14px;
-            line-height: 17px;
-            color: #FFFFFF;
-        }
-        .video-slide {
-            height: 590px;
-            position: relative;
-        }
-        .video-layer {
-            position: absolute;
-            bottom: -20px;
-            width: 85%;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 100%;
-            z-index: -1;
-        }
-        .video-layer.first {
-            background: #3790F5;
-            border-radius: 23px;
-        }
-        .video-layer.second {
-            background: rgba(55, 144, 245, 0.2);
-            border-radius: 25px;
-            bottom: -40px;
-            width: 70%;
-        }
-        .video-controllers {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            position: absolute;
-            bottom: 30px;
-            z-index: 2;
-        }
+    }
+    @media screen and (max-width: 350px) {
         .video-btn.prev {
-            height: 40px;
-            width: 40px;
-            background: #060719;
-            border-radius: 30px;
-            margin: 0;
-            position: absolute;
-            left: 17%;
-        }
-        .video-btn {
-            height: 57px;
-            width: 57px;
-            background: #060719;
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 25px;
+            left: 10%;
         }
         .video-btn.next {
-            height: 40px;
-            width: 40px;
-            background: #060719;
-            border-radius: 30px;
-            margin: 0;
-            position: absolute;
-            right: 17%;
+                right: 10%;
         }
-        .howToEarn-logo-wrapper {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .howToEarn-title {
-            margin-left: 10px;
-            font-weight: bold;
-            font-size: 22px;
-            line-height: 150%;
-        }
-        .howToEarn-text {
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 155%;
-            opacity: .5;
-        }
-        .howToEarn-btn {
-            margin: 40px 0;
-        }
-       .fade-enter-active, .fade-leave-active {
-           transition: opacity .5s;
-       }
-       .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-           opacity: 0;
-       }
-       .swiper-slide {
-           width:145px;
-       }
-   .notification{
-       position: fixed;
-       z-index: 500;
-       left: 0;
-       right: 0;
-       top: 30px;
-       width: 100%;
-       min-height: 40px;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-   }
-   .notification p{
-       width: 100%;
-       min-height: 40px;
-       padding-top: 10px;
-       padding-bottom: 10px;
-       max-width: 320px;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       background: rgba(0, 0, 0, 0.65);
-       backdrop-filter: blur(15px);
-       -webkit-backdrop-filter: blur(15px);
-       border-radius: 8px;
-       font-family: SF Pro Display;
-       font-style: normal;
-       font-weight: 500;
-       font-size: 14px;
-       line-height: 17px;
-       text-align: center;
-       color: #FFFFFF;
-       opacity: 0;
-       transition: .3s;
-   }
-   .notification p.active{
-       opacity: 1;
-   }
-   .loading {
-       position: fixed;
-       left: 0;
-       top: 0;
-       right: 0;
-       bottom: 0;
-       background: rgba(0, 0, 0, 0.6);
-       backdrop-filter: blur(30px);
-       z-index: 50;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-   }
-    .loading svg {
-        animation: rotate linear 2s infinite;
     }
-   @keyframes rotate {
-       0% {
-           transform: rotate(0);
-       }
-       100% {
-           transform: rotate(360deg);
-       }
-   }
-   @media screen and (max-width: 350px) {
-       .video-btn.prev {
-           left: 10%;
-       }
-       .video-btn.next {
-            right: 10%;
-       }
-   }
 </style>

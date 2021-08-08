@@ -47,6 +47,7 @@
 <script>
     import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
     import axios from 'axios';
+    import EventBus from '../EventBus';
     const RegisterOneClick = {
         data: () => ({
             oneRegData: {
@@ -68,7 +69,7 @@
         },
         methods: {
             authorization() {
-                this.$emit('authorization', {id: this.getUser.id});
+                EventBus.$emit('closeModal');
             },
             registerData() {
                 this.oneRegData.active = true;

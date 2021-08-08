@@ -43,14 +43,14 @@
                 </div>
             </div>
             <div class="item-wrapper">
-                <div v-for="(item,index) in items" :key="index" class="item">
-                    <swiper ref="mySwiper" :options="swiperOption" @click.self="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">
-                        <swiper-slide v-for="(photo,index) in item.photos" :key="index">
+                <div v-for="(item,index) in items" :key="index * Math.random()" class="item">
+                    <swiper ref="mySwiper" :options="swiperOption" @click.self="selectModel(item.photos[0], item.id)">
+                        <swiper-slide v-for="(photo,index) in item.photos" :key="(index + 1) * Math.random()">
                             <div class="slider-item">
                                 <img class="slider-img" :src="photo" alt="das">
                             </div>
                         </swiper-slide>
-                        <swiper-slide v-for="(photo, index) in item.closed" :key="index">
+                        <swiper-slide v-for="(photo, index) in item.closed" :key="index * Math.random()">
                             <div class="slider-item" @click="showPopup = true">
                                 <img class="slider-img" :src="item.closed[index]" alt="das">
                                 <div class="blur">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="video">
                     <swiper @slideChange="videoSlideChange" :options="videoSwiperOptions" class="videoSwiper" ref="videoSwiper" :style="{overflow:'hidden',borderRadius: '20px'}" >
-                        <swiper-slide v-for="(videoSlide,index) of videoSliderData" :key="index" class="video-slide">
+                        <swiper-slide v-for="(videoSlide,index) of videoSliderData" :key="index * Math.random()" class="video-slide">
                             <video class="videoSlide" :src="videoSlide.path" muted loop preload="auto">
                                 <source src="../public/video/ocean.mp4" type="video/mp4">
                             </video>
@@ -184,7 +184,7 @@
             </div>
         </div>
         <transition-group name="fade">
-            <div key="first" v-if="modalShow" class="popup-wrapper" @click="closePopUp">
+            <div key="first" v-if="modalShow" class="popup-wrapper" @click.self="closePopUp">
                 <div class="popup" :style="{padding:popUpPadding}">
                     <div v-if="modalType === 'newUsers'">
                         <div class="img-wrapper">
@@ -207,7 +207,7 @@
                         <p class="popup-title">Для новых пользователей</p>
                         <p class="popup-text">Подписка на одну из этих 5</p>
                         <p class="popup-text">ТОП-моделей всего за 1 ₽ вместо  <span :style="{textDecoration:'line-through'}">500 ₽</span></p>
-                        <div :style="{margin:'20px 24px',height: '48px'}" class="item-btn" @click="closePopUp($event,true)">Выбрать</div>
+                        <div :style="{margin:'20px 24px',height: '48px'}" class="item-btn" @click="closePopUp">Выбрать</div>
                         <p class="popup-time timer">осталось 15 мин. 14 сек.</p>
                     </div>
                     <div v-else-if="modalType === 'makeFriends'" class="makeFriends" :style="{width:'185px',margin:'0 auto'}">
@@ -248,295 +248,301 @@
 </template>
 
 <script>
-    import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
-    import 'swiper/swiper-bundle.css';
-    import Register from './components/Register';
-    import Login from './components/Login';
-    const Landing = {
-        name: "Landing",
-        data:()=>({
-            user: null,
-            showNotification:false,
-            notificationText:'',
-            loading:false,
-            modalShow:false,
-            modalType:'',
-            friendsModalPhoto: null,
-            popUpPadding:'20px 15px 25px',
-            time:959,
-            timerId:null,
-            videoProgress: null,
-            videoPaused:true,
-            videoSwiper: null,
-            modelId: null,
-            videoSliderData:[
-                {path:require('../public/video/1.mp4'),paused:true,curTime:null},
-                {path:require('../public/video/2.mp4'),paused:true,curTime:null},
-                {path:require('../public/video/3.mp4'),paused:true,curTime:null},
-                {path:require('../public/video/4.mp4'),paused:true,curTime:null},
-            ],
-            items:[
-                {
-                    title: 'Диана Шурыгина',
-                    videosCount :500,
-                    photosCount: 742,
-                    photos: [
-                        require('../public/img/images/1/Open/1.jpg'),
-                        require('../public/img/images/1/Open/2.jpg'),
-                        require('../public/img/images/1/Open/3.jpg')
-                    ],
-                    closed: [
-                        require('../public/img/images/1/Close/1.jpg'),
-                        require('../public/img/images/1/Close/2.jpg')
-                    ],
-                    id: 219,
-                },
-                {
-                    title: 'Аделина и Алина',
-                    videosCount: 251,
-                    photosCount: 612,
-                    photos: [
-                        require('../public/img/images/2/Open/1.jpg'),
-                        require('../public/img/images/2/Open/2.jpg'),
-                        require('../public/img/images/2/Open/3.jpg'),
-                        require('../public/img/images/2/Open/4.jpg'),
-                        require('../public/img/images/2/Open/5.jpg')
-                    ],
-                    closed: [
-                        require('../public/img/images/2/Close/1.jpg'),
-                        require('../public/img/images/2/Close/2.jpg')
-                    ],
-                    id: 219,
-                },
-                {
-                    title: 'Mia',
-                    videosCount: 623,
-                    photosCount: 256,
-                    photos: [
-                        require('../public/img/images/3/Open/1.jpg'),
-                        require('../public/img/images/3/Open/2.jpg'),
-                        require('../public/img/images/3/Open/3.jpg'),
-                    ],
-                    closed: [
-                        require('../public/img/images/3/Close/1.jpg'),
-                        require('../public/img/images/3/Close/2.jpg')
-                    ],
-                    id: 219,
-                },
-                {
-                    title: 'Amouranth',
-                    videosCount: 252,
-                    photosCount: 125,
-                    photos: [
-                        require('../public/img/images/4/Open/1.jpg'),
-                        require('../public/img/images/4/Open/2.jpg'),
-                        require('../public/img/images/4/Open/3.jpg'),
-                        require('../public/img/images/4/Open/4.jpg'),
-                        require('../public/img/images/4/Open/5.jpg'),
-                    ],
-                    closed: [
-                        require('../public/img/images/4/Close/1.jpg'),
-                        require('../public/img/images/4/Close/2.jpg'),
-                        require('../public/img/images/4/Close/3.jpg'),
-                    ],
-                    id:219,
-                },
-                {
-                    title: 'Bhad Bhabie',
-                    videosCount: 345,
-                    photosCount: 432,
-                    photos: [
-                        require('../public/img/images/5/Open/1.jpg'),
-                        require('../public/img/images/5/Open/2.jpg'),
-                        require('../public/img/images/5/Open/3.jpg'),
-                    ],
-                    closed: [
-                        require('../public/img/images/5/Close/1.jpg'),
-                        require('../public/img/images/5/Close/2.jpg'),
-                    ],
-                    id:219,
-                },
-            ],
-            videoSwiperOptions: {
-                noSwiping:false,
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+import 'swiper/swiper-bundle.css';
+import Register from './components/Register';
+import Login from './components/Login';
+import EventBus from './EventBus';
+const Landing = {
+    data: () => ({
+        user: null,
+        modalWasShow: false,
+        showNotification: false,
+        notificationText: '',
+        loading: false,
+        modalShow: false,
+        modalType: '',
+        friendsModalPhoto: null,
+        popUpPadding: '20px 15px 25px',
+        time: 959,
+        timerId: null,
+        videoProgress: null,
+        videoPaused: true,
+        videoSwiper: null,
+        modelId: null,
+        videoSliderData: [
+            {path:require('../public/video/1.mp4'),paused:true,curTime:null},
+            {path:require('../public/video/2.mp4'),paused:true,curTime:null},
+            {path:require('../public/video/3.mp4'),paused:true,curTime:null},
+            {path:require('../public/video/4.mp4'),paused:true,curTime:null},
+        ],
+        items: [
+            {
+                title: 'Диана Шурыгина',
+                videosCount: 500,
+                photosCount: 742,
+                photos: [
+                    require('../public/img/images/1/Open/1.jpg'),
+                    require('../public/img/images/1/Open/2.jpg'),
+                    require('../public/img/images/1/Open/3.jpg')
+                ],
+                closed: [
+                    require('../public/img/images/1/Close/1.jpg'),
+                    require('../public/img/images/1/Close/2.jpg')
+                ],
+                id: 1580297,
             },
-            swiperOption: {
-                slidesPerView: 'auto',
-                spaceBetween: 10,
-            }
-        }),
-        methods:{
-            subscribeOnModel(){
-                window.open(`https://friendsonly.me/auth_redirect/token/${this.user}?link=/yakassa/card/follow/bank_card/${this.modelId}`);
+            {
+                title: 'Аделина и Алина',
+                videosCount: 251,
+                photosCount: 612,
+                photos: [
+                    require('../public/img/images/2/Open/1.jpg'),
+                    require('../public/img/images/2/Open/2.jpg'),
+                    require('../public/img/images/2/Open/3.jpg'),
+                    require('../public/img/images/2/Open/4.jpg'),
+                    require('../public/img/images/2/Open/5.jpg')
+                ],
+                closed: [
+                    require('../public/img/images/2/Close/1.jpg'),
+                    require('../public/img/images/2/Close/2.jpg')
+                ],
+                id: 1842323,
             },
-            setUser(user){
-                this.user = user;
+            {
+                title: 'Mia',
+                videosCount: 623,
+                photosCount: 256,
+                photos: [
+                    require('../public/img/images/3/Open/1.jpg'),
+                    require('../public/img/images/3/Open/2.jpg'),
+                    require('../public/img/images/3/Open/3.jpg'),
+                ],
+                closed: [
+                    require('../public/img/images/3/Close/1.jpg'),
+                    require('../public/img/images/3/Close/2.jpg')
+                ],
+                id: 1580345,
             },
-            setLoading(flag){
-                if (flag) {
-                    this.loading = flag;
-                } else {
-                    this.loading = flag;
-                }                    
+            {
+                title: 'Amouranth',
+                videosCount: 252,
+                photosCount: 125,
+                photos: [
+                    require('../public/img/images/4/Open/1.jpg'),
+                    require('../public/img/images/4/Open/2.jpg'),
+                    require('../public/img/images/4/Open/3.jpg'),
+                    require('../public/img/images/4/Open/4.jpg'),
+                    require('../public/img/images/4/Open/5.jpg'),
+                ],
+                closed: [
+                    require('../public/img/images/4/Close/1.jpg'),
+                    require('../public/img/images/4/Close/2.jpg'),
+                    require('../public/img/images/4/Close/3.jpg'),
+                ],
+                id: 1580355,
             },
-            setLoginKey(){
-                this.loginKey++
+            {
+                title: 'Bhad Bhabie',
+                videosCount: 345,
+                photosCount: 432,
+                photos: [
+                    require('../public/img/images/5/Open/1.jpg'),
+                    require('../public/img/images/5/Open/2.jpg'),
+                    require('../public/img/images/5/Open/3.jpg'),
+                ],
+                closed: [
+                    require('../public/img/images/5/Close/1.jpg'),
+                    require('../public/img/images/5/Close/2.jpg'),
+                ],
+                id: 1580317,
             },
-            openNotification(text){
-                this.notificationText = text;
-                this.showNotification = true;
-                setTimeout(()=>{
-                    this.closeNotification();
-                },3000)
-            },
-            closeNotification(){
-              this.showNotification = false;
-            },
-            selectModel(photo, id){
-                console.log('select');
-                this.friendsModalPhoto = photo;
-                this.modelId = id;
-                this.openPopUp('makeFriends');
-            },
-            openPopUp(type){
-                this.modalShow = true;
-                this.modalType = type;
-            },
-            closeModal(){
-                this.modelId = null;
-                this.modalShow = false;
-                this.modalType = ''
-            },
-            closePopUp(e,close = false){
-                if (e.target.classList.contains('popup-wrapper')){
-                    this.modalShow = false;
-                    this.modalType = ''
-                } else if (close === true){
-                    this.modalShow = false;
-                    this.modalType = ''
-                }
-            },
-            showLoginModal(){
-                this.modalType = 'login';
-            },
-            showRegisterModal(){
-                this.modalType = 'registration'
-            },
-            createTimer(){
-                if (this.time <= 0) this.time = 959;
-                let minutes = Math.floor(this.time/60);
-                let seconds = this.time % 60;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                minutes =  minutes === 0 ? '' : minutes+' мин.';
-                let timers = document.querySelectorAll('.timer');
-                timers.forEach((timer,index)=>{
-                    if (index === 0){
-                        timer.innerHTML = `${minutes} ${seconds} сек.`
-                    } else {
-                        timer.innerHTML = `осталось ${minutes} ${seconds} сек.`
-                    }
-                })
-                this.time -= 1;
-            },
-            videoSlideChange(){
-                this.videoSliderData = this.videoSliderData.map(video=>({...video,paused:true}))
-                let videos = document.querySelectorAll('.videoSlide');
-                videos.forEach(video=>{
-                    if (!video.paused) video.pause();
-                })
-            },
-            prevVideoSlide(){
-                this.videoSwiper.slidePrev();
-            },
-            nextVideoSlide(){
-                this.videoSwiper.slideNext();
-            },
-            modelsVideoController(index){
-                let video = document.querySelectorAll('.modelsVideo')[index];
-                video.requestFullscreen();
-            },
-            videoController(index){
-                let video = document.querySelectorAll('.videoSlide')[index];
-                if (video.paused){
-                    video.play();
-                    this.videoSliderData[index].paused = false;
-                } else {
-                    video.pause();
-                    this.videoSliderData[index].paused = true;
-                }
-            },
+        ],
+        videoSwiperOptions: {
+            noSwiping:false,
         },
-        watch:{
-            user(newVal){
-                console.log('newVal',newVal)
-                if (newVal) this.$forceUpdate();
-            },
-            modalShow(newVal){
-                if (newVal === true) document.body.style.overflow = 'hidden'
-                else {
-                document.body.style.overflow = 'scroll'
-                }
-            },
-            loading(newVal){
-                if (newVal === true) document.body.style.overflow = 'hidden';
-                else if (newVal === false) {
-                    document.body.style.overflow = ''
-                }
-            },
-        },
-        computed:{
-            isStart(){
-                return this.videoSwiper.isBeginning;
-            },
-            isEnd(){
-                return this.videoSwiper.isEnd;
-            },
-            currentVideoSlide(){
-                return this.videoSwiper.activeIndex
-            }
-        },
-        components: {
-            Register,
-            Login,
-            Swiper,
-            SwiperSlide,
-        },
-        mounted(){
-            setTimeout(()=>{
-                if (this.modalType === '') {
-                    this.modalShow = true;
-                    this.modalType = 'newUsers';
-                }
-            }, 4500)
-            this.user = JSON.parse(localStorage.getItem('user')) || null;
-            this.videoSwiper = document.querySelector('.videoSwiper').swiper;
-            this.timerId = setInterval(this.createTimer,1000);
-            let videos = document.querySelectorAll('.videoSlide')
-            videos.forEach((video,index)=>{
-                video.ontimeupdate = () => {
-                    this.videoSliderData[index].curTime = Math.floor(video.currentTime/video.duration*100)
-                };
-            })
-            let modelsVideos = document.querySelectorAll('.modelsVideo');
-            let modelsText = document.querySelectorAll('.video-text');
-            modelsVideos.forEach((video,index)=>{
-                let intervalId = setInterval(function() {
-                    if (video.readyState > 0) {
-                        let seconds = video.duration;
-                        modelsText[index].innerHTML = `00:${Math.floor(seconds)}`;
-                        clearInterval(intervalId);
-                    }
-                }, 200);
-            })
-        },
-        beforeDestroy(){
-            clearInterval(this.timerId)
-        },
-        directives: {
-            swiper: directive
+        swiperOption: {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
         }
+    }),
+    methods:{
+        subscribeOnModel(){
+            window.open(`https://friendsonly.me/auth_redirect/token/${this.user}?link=/yakassa/card/follow/bank_card/${this.modelId}`);
+        },
+        setUser(user){
+            this.user = user;
+        },
+        setLoading(flag){
+            if (flag) {
+                this.loading = flag;
+            } else {
+                this.loading = flag;
+            }                    
+        },
+        setLoginKey(){
+            this.loginKey++
+        },
+        openNotification(text){
+            this.notificationText = text;
+            this.showNotification = true;
+            setTimeout(()=>{
+                this.closeNotification();
+            },3000)
+        },
+        closeNotification(){
+            this.showNotification = false;
+        },
+        selectModel(photo, id){
+            console.log('select');
+            this.friendsModalPhoto = photo;
+            this.modelId = id;
+            this.openPopUp('makeFriends');
+        },
+        openPopUp(type){
+            this.modalShow = true;
+            this.modalType = type;
+        },
+        closeModal(){
+            console.log('close');
+            this.modalShow = false;
+            if (this.modelId && (this.modalType === 'login' || this.modalType === 'registration')) {
+                this.openPopUp('makeFriends');
+            } else {
+                this.modalType = '';
+            }
+        },
+        closePopUp(){
+            this.modalShow = false;
+            this.modalType = '';
+            this.modelId = null;
+        },
+        showLoginModal(){
+            this.modalType = 'login';
+        },
+        showRegisterModal(){
+            this.modalType = 'registration'
+        },
+        createTimer(){
+            if (this.time <= 0) this.time = 959;
+            let minutes = Math.floor(this.time/60);
+            let seconds = this.time % 60;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            minutes =  minutes === 0 ? '' : minutes+' мин.';
+            let timers = document.querySelectorAll('.timer');
+            timers.forEach((timer,index)=>{
+                if (index === 0){
+                    timer.innerHTML = `${minutes} ${seconds} сек.`
+                } else {
+                    timer.innerHTML = `осталось ${minutes} ${seconds} сек.`
+                }
+            })
+            this.time -= 1;
+        },
+        videoSlideChange(){
+            this.videoSliderData = this.videoSliderData.map(video=>({...video,paused:true}))
+            let videos = document.querySelectorAll('.videoSlide');
+            videos.forEach(video=>{
+                if (!video.paused) video.pause();
+            })
+        },
+        prevVideoSlide(){
+            this.videoSwiper.slidePrev();
+        },
+        nextVideoSlide(){
+            this.videoSwiper.slideNext();
+        },
+        modelsVideoController(index){
+            let video = document.querySelectorAll('.modelsVideo')[index];
+            video.requestFullscreen();
+        },
+        videoController(index){
+            let video = document.querySelectorAll('.videoSlide')[index];
+            if (video.paused){
+                video.play();
+                this.videoSliderData[index].paused = false;
+            } else {
+                video.pause();
+                this.videoSliderData[index].paused = true;
+            }
+        },
+    },
+    watch:{
+        user(newVal){
+            console.log('newVal',newVal)
+            if (newVal) this.$forceUpdate();
+        },
+        modalShow(newVal){
+            this.modalWasShow = true;
+            if (newVal === true) {
+                document.body.style.overflow = 'hidden' 
+            } else {
+                document.body.style.overflow = 'scroll'
+            }
+        },
+        loading(newVal){
+            if (newVal === true) {
+                document.body.style.overflow = 'hidden';
+            } else if (newVal === false) {
+                document.body.style.overflow = ''
+            }
+        },
+    },
+    computed:{
+        isStart(){
+            return this.videoSwiper.isBeginning;
+        },
+        isEnd(){
+            return this.videoSwiper.isEnd;
+        },
+        currentVideoSlide(){
+            return this.videoSwiper.activeIndex
+        }
+    },
+    components: {
+        Register,
+        Login,
+        Swiper,
+        SwiperSlide,
+    },
+    mounted(){
+        EventBus.$on('closeModal', this.closeModal);
+        setTimeout(()=>{
+            if (this.modalType === '' && !this.modalWasShow) {
+                this.modalShow = true;
+                this.modalType = 'newUsers';
+                this.modalWasShow = true;
+            }
+        }, 4500)
+        this.user = JSON.parse(localStorage.getItem('user')) || null;
+        this.videoSwiper = document.querySelector('.videoSwiper').swiper;
+        this.timerId = setInterval(this.createTimer,1000);
+        let videos = document.querySelectorAll('.videoSlide')
+        videos.forEach((video,index)=>{
+            video.ontimeupdate = () => {
+                this.videoSliderData[index].curTime = Math.floor(video.currentTime/video.duration*100)
+            };
+        })
+        let modelsVideos = document.querySelectorAll('.modelsVideo');
+        let modelsText = document.querySelectorAll('.video-text');
+        modelsVideos.forEach((video,index)=>{
+            let intervalId = setInterval(function() {
+                if (video.readyState > 0) {
+                    let seconds = video.duration;
+                    modelsText[index].innerHTML = `00:${Math.floor(seconds)}`;
+                    clearInterval(intervalId);
+                }
+            }, 200);
+        })
+    },
+    beforeDestroy(){
+        clearInterval(this.timerId)
+    },
+    directives: {
+        swiper: directive
     }
-    export default  Landing
+}
+export default  Landing
 </script>
 
 <style>
@@ -731,7 +737,6 @@
         font-size: 20px;
         line-height: 150%;
     }
-
     .container-models {
         display: flex;
         justify-content: space-between;
@@ -829,6 +834,7 @@
         background: rgba(55, 144, 245, 1);
         color: #FFFFFF;
         border-radius: 15px;
+        cursor: pointer;
     }
     .item-btn-left {
         margin-right: 10px;
@@ -964,7 +970,8 @@
         opacity: 0;
     }
     .swiper-slide {
-        width:145px;
+        width: 145px;
+        cursor: pointer;
     }
     .notification{
         position: fixed;

@@ -33,7 +33,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <button class="loginBtn" @click="login" :disabled="error_email||error_pass">Войти в аккаунт</button>
+                        <button class="loginBtn" @click="login" :disabled="error_email || error_pass">Войти в аккаунт</button>
                         <!-- <button class="linkForgot" @click="changeStep(1)">Забыл пароль :(</button> -->
                     </div>
                 </div>
@@ -65,8 +65,12 @@
     import axios from 'axios'
     const Login = {
         props: {
-            redirect:{default:false},
-            isBlog:{default: false},
+            redirect: {
+                default: false
+            },
+            isBlog: {
+                default: false
+            },
         },
         data: () => ({
             error_email: false,
@@ -87,7 +91,8 @@
         }),
         watch:{
             email() {
-                this.error_email = false
+                this.error_email = false;
+                this.error_pass = false;
                 if (this.email.length > 0) {
                     this.$el.style = 'height: 235px';
                 } else {
@@ -95,6 +100,7 @@
                 }
             },
             pass() {
+                this.error_email = false;
                 this.error_pass = false;
             }
         },
@@ -189,6 +195,7 @@
     .register span {
         color: #0B94CD;
         margin-right: 15px;
+        cursor: pointer;
     }
     .register .text{
         min-width: 110px;
@@ -367,6 +374,10 @@
         outline: 0;
         margin-top: 15px;
         cursor: pointer;
+        transition: .2s;
+    }
+    .loginWrap .loginBtn:disabled{
+        opacity: .5;
     }
     .loginWrap .login-title {
         font-weight: 600;

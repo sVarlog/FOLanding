@@ -54,7 +54,7 @@
                             <div class="slider-item" @click="showPopup = true">
                                 <img class="slider-img" :src="item.closed[index]" alt="das">
                                 <div class="blur">
-                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0], item.id) : openPopUp('login')">Открыть доступ</div>
+                                    <div class="item-btn" :style="{margin:'auto',width:'106px',height:'36px',fontSize:'10px',fontWeight:'600',borderRadius:'8px'}" @click="user ? selectModel(item.photos[0], item.id) : openPopUp('registration')">Открыть доступ</div>
                                 </div>
                             </div>
                         </swiper-slide>
@@ -227,11 +227,10 @@
                         </div>
                         <p class="popup-title">1 ₽ </p>
                         <p class="popup-text">через 3 дня 499₽/месяц</p>
-                        <div class="item-btn" :style="{marginTop:'25px'}" @click="user ? subscribeOnModel() : openPopUp('login')">Подружиться</div>
+                        <div class="item-btn" :style="{marginTop:'25px'}" @click="user ? subscribeOnModel() : openPopUp('registration')">Подружиться</div>
                         <p class="popup-text">Будет списан 1 рубль для подтверждения </p>
                     </div>
-                    <Register @setUser="setUser" @setLoginKey="setLoginKey"  @setLoading="setLoading" @login="showLoginModal" @closeModal="closeModal"  @showNotification="openNotification" v-else-if="modalType === 'registration'"/>
-                    <Login @setLoading="setLoading" @setUser="setUser" @register="showRegisterModal" @closeModal="closeModal" @showNotification="openNotification" v-else-if="modalType === 'login'"/>
+                    <Register @setUser="setUser" @setLoginKey="setLoginKey"  @setLoading="setLoading" @closeModal="closeModal"  @showNotification="openNotification" v-else-if="modalType === 'registration'"/>
                 </div>
             </div>
             <div key="second" class="notification" v-if="showNotification">
@@ -251,7 +250,6 @@
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
 import Register from './components/Register';
-import Login from './components/Login';
 import EventBus from './EventBus';
 const Landing = {
     data: () => ({
@@ -406,7 +404,7 @@ const Landing = {
         closeModal(){
             console.log('close');
             this.modalShow = false;
-            if (this.modelId && (this.modalType === 'login' || this.modalType === 'registration')) {
+            if (this.modelId && this.modalType === 'registration') {
                 this.openPopUp('makeFriends');
             } else {
                 this.modalType = '';
@@ -416,9 +414,6 @@ const Landing = {
             this.modalShow = false;
             this.modalType = '';
             this.modelId = null;
-        },
-        showLoginModal(){
-            this.modalType = 'login';
         },
         showRegisterModal(){
             this.modalType = 'registration'
@@ -501,7 +496,6 @@ const Landing = {
     },
     components: {
         Register,
-        Login,
         Swiper,
         SwiperSlide,
     },

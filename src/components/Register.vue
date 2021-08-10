@@ -37,7 +37,6 @@
                     </div>
                     через Email
                 </div>
-                <div class="haveAcc"><div class="text">Уже есть аккаунт?</div> <span @click="$emit('login')">Войти</span> <div class="line"></div></div>
                 <!--<div class="reg-list__item vkReg" onclick="$('#vk_auth').submit()">
                     <div class="svgWrap">
                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +109,7 @@
             btnActive: false,
             stepsInner: null,
             emailAuth: false,
-            currentHeight: 215,
+            currentHeight: 165,
             currentRegEmailStep: 0,
             showPass: false,
             showConfirm: false,
@@ -162,8 +161,8 @@
                             this.$emit('closeModal');
                             this.$emit('showNotification','Регистрация выполнена')
                             this.$emit('setLoading')
-                            localStorage.setItem('user',JSON.stringify(resp.data.data));
-                            this.$emit('setUser',resp.data.data);
+                            localStorage.setItem('user',JSON.stringify(resp.data.data.token));
+                            this.$emit('setUser',resp.data.data.token);
                             if(resp.data.errors && resp.data.errors.validation.phone == 'Phone already exists'){
                                 this.email_error = true
                             } else {

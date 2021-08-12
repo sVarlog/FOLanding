@@ -291,7 +291,7 @@ const Landing = {
                 id: 1580297,
             },
             {
-                title: 'Аделина и Алина',
+                title: 'Казанские близняшки',
                 videosCount: 251,
                 photosCount: 612,
                 photos: [

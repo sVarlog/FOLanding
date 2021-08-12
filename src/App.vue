@@ -105,14 +105,12 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <h3 class="best-videos-title">Лучшие видео</h3>
+                    <h3 class="best-videos-title">Популярные видео</h3>
                 </div>
                 <div class="video">
                     <swiper @slideChange="videoSlideChange" :options="videoSwiperOptions" class="videoSwiper" ref="videoSwiper" :style="{overflow:'hidden',borderRadius: '20px'}" >
                         <swiper-slide v-for="(videoSlide,index) of videoSliderData" :key="index * Math.random()" class="video-slide">
-                            <video class="videoSlide" :src="videoSlide.path" muted loop preload="auto">
-                                <source src="../public/video/ocean.mp4" type="video/mp4">
-                            </video>
+                            <video class="videoSlide" :src="videoSlide.path" muted loop preload="auto"></video>
                         </swiper-slide>
                     </swiper>
                     <div v-if="videoSwiper" class="video-controllers">
@@ -269,10 +267,10 @@ const Landing = {
         videoSwiper: null,
         modelId: null,
         videoSliderData: [
-            {path:require('../public/video/1.mp4'),paused:true,curTime:null},
-            {path:require('../public/video/2.mp4'),paused:true,curTime:null},
-            {path:require('../public/video/3.mp4'),paused:true,curTime:null},
-            {path:require('../public/video/4.mp4'),paused:true,curTime:null},
+            {path: require('../public/sliderVideo/1.mp4'), paused: true, curTime: null},
+            {path: require('../public/sliderVideo/2.mp4'), paused: true, curTime: null},
+            {path: require('../public/sliderVideo/3.mp4'), paused: true, curTime: null},
+            {path: require('../public/sliderVideo/4.mp4'), paused: true, curTime: null},
         ],
         items: [
             {
